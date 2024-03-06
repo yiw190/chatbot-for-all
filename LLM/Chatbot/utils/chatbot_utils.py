@@ -1,7 +1,9 @@
 from transformers import LlamaTokenizer, LlamaForCausalLM, GenerationConfig, pipeline, AutoTokenizer, AutoModelForCausalLM
 from langchain.llms import HuggingFacePipeline
-from langchain import PromptTemplate, LLMChain
-from langchain.chat_models import ChatOpenAI
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain.chains.question_answering import load_qa_chain
 import torch
 from django.http import JsonResponse  
 from langchain.chains import SequentialChain, ConversationChain
@@ -43,8 +45,8 @@ def create_pipeline(
     langchain_llm = HuggingFacePipeline(pipeline=pipe)
     return langchain_llm
 
-def create_chains(llm, prompt):
-    chain = LLMChain(llm=llm, prompt=prompt)
+def create_chains(llm, prompt, verbose=True):
+    chain = LLMChain(llm=llm, prompt=prompt, verbose=True)
     return chain
 
 def create_seq_chains(prompts, llm, input_variables=None, output_key=None,verbose=True): # this is used for creating a sequential chain for dealing step by step questions.
@@ -84,6 +86,13 @@ def create_conversations(llm, prompt,use_memory=True, memory=None, verbose=True)
     else:
         conversation = ConversationChain(llm=llm, prompt=prompt, verbose=True)
     return conversation
+
+
+def create_qa_chains(llm, prompt, verbose=True):
+    
+    chain = load_qa_chain(llm=llm, chain_type='map_rerank', verbose=True)
+    
+    return chain
 
 
 

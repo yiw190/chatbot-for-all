@@ -1,32 +1,24 @@
 from dotenv import load_dotenv
 from openai import OpenAI
-from langchain.chat_models import ChatOpenAI
+from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
-
-from chatbot_utils import create_pipeline, create_tokenizer, create_model, create_chains, create_seq_chains, create_conversations
-from template_utils import create_PHQ_score_temp, PHQ_knowledge, data2string, conversation_temp
-
+from utils import *
 
 load_dotenv()# Load the .env file
 import argparse
 import torch
-"""
-llm = ChatOpenAI(model='gpt-3.5-turbo-1106',
-        temperature=0.5, 
-        max_tokens=1024, 
-    )
-print("#########################################################")
-print(llm.predict('Discribe a possible ptsd medical treatment.'))
-print("#########################################################")
-"""
+import os
+import sys
+current_path = os.path.dirname(os.path.abspath(__file__))
+parent_path = os.path.dirname(current_path)
 
 args = argparse.ArgumentParser(description="OpenAI Chatbot")
 
 # OpenAI
 
 args.add_argument("--openai_model", type=str, default="gpt-3.5-turbo-1106", help="The openai model to use")
-args.add_argument("--use_openai", type=str, default="False", help="Whether to use openai model") 
+args.add_argument("--use_openai", type=str, default="True", help="Whether to use openai model") 
 
 # Local Model
 args.add_argument("--local_model", type=str, default="TheBloke/Llama-2-7B-Chat-GPTQ", help="local model to use")
@@ -68,6 +60,7 @@ if __name__ == "__main__":
     
     # test for conversation chain
     
+    """ 
     prompt = conversation_temp()
     prompt = PromptTemplate.from_template(prompt)
     conversation = create_conversations(chatbot, prompt)
@@ -76,6 +69,28 @@ if __name__ == "__main__":
         result = conversation.predict(input=human_input)
         print('Assistant: ', result)
     hidden()
+    """
+    
+    # test for corpus reading
+    # data_dir = parent_path + '/Data/ptsd_treatment.txt'
+    # corpus = file_to_corpus(data_dir)
+    # document = corpus_to_documents(corpus)
+    # question = ''
+    
+    # retrieve_documents = retrieve_documents(document, question, k=6)
+    # prompt = PromptTemplate.from_template(question)
+    # chain = create_chains(chatbot, prompt)
+    
+    # print(chain.run(input_documents=retrieve_documents, question=question))
+    
+    # print("##################################################")
+    
+    # print(chain.run(question=question))
+    # exit()
+    
+    
+    
+    
     
 
 
