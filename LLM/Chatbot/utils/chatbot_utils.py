@@ -1,5 +1,6 @@
 from transformers import LlamaTokenizer, LlamaForCausalLM, GenerationConfig, pipeline, AutoTokenizer, AutoModelForCausalLM
-from langchain.llms import HuggingFacePipeline
+#from langchain.llms import HuggingFacePipeline
+from langchain_community.llms import HuggingFacePipeline
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_openai import ChatOpenAI
@@ -20,8 +21,9 @@ def create_tokenizer(model_name):
     
     return tokenizer
 
-def create_model(model_name):
-    model = AutoModelForCausalLM.from_pretrained(model_name)
+def create_model(model_name,load_in_8bit=True):
+    model = AutoModelForCausalLM.from_pretrained(model_name,
+    load_in_8bit = True)
     return model
 
 def create_pipeline(
