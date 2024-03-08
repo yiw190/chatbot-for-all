@@ -17,8 +17,6 @@ from langchain.memory import (ConversationBufferMemory,
 def create_tokenizer(model_name):
     # demo version, use AUTO tokenizer
     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    
-    
     return tokenizer
 
 def create_model(model_name,load_in_8bit=True):
