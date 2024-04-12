@@ -16,7 +16,6 @@ parent_path = os.path.dirname(current_path)
 args = argparse.ArgumentParser(description="OpenAI Chatbot")
 
 # OpenAI
-
 args.add_argument("--openai_model", type=str, default="gpt-3.5-turbo-1106", help="The openai model to use")
 args.add_argument("--use_openai", type=str, default="True", help="Whether to use openai model") 
 
@@ -40,14 +39,13 @@ def create_chatbot(args):
 if __name__ == "__main__":
     # create chat bot
     chatbot = create_chatbot(args)
-    
 # test the chatbot
     
-    print(chatbot.predict('Discribe a possible ptsd medical treatment.'))
-    prompt = create_PHQ_score_temp()
-    prompt = PromptTemplate.from_template(prompt)
-    chat_chain = create_chains(chatbot, prompt)
-    print(chat_chain.predict(heart_rate=90, sleep=8, weight=70, height=180, age=30))
+    # print(chatbot.predict('Discribe a possible ptsd medical treatment.'))
+    # prompt = create_PHQ_score_temp()
+    # prompt = PromptTemplate.from_template(prompt)
+    # chat_chain = create_chains(chatbot, prompt)
+    # print(chat_chain.predict(heart_rate=90, sleep=8, weight=70, height=180, age=30))
     
     
 # test for sequential chain
@@ -73,20 +71,17 @@ if __name__ == "__main__":
     
 #test for corpus reading
     
-    # data_dir = parent_path + '/Data/ptsd_treatment.txt'
-    # corpus = file_to_corpus(data_dir)
-    # document = corpus_to_documents(corpus)
-    # question = 'After you get a gun shot and have the symptoms of PTSD, what should you do?'
-    # print(document)
-    # retrieve_documents = retrieve_documents(document, question, k=3)
-    # prompt = PromptTemplate.from_template(question)
-    # chain = create_chains(chatbot, prompt)
-    
-    # print(chain.run(input_documents=retrieve_documents, question=question))
-    
-    # print("##################################################")
-    
-    # print(chain.run(question=question))
+    data_dir = parent_path + '/Data/ptsd_treatment.txt'
+    corpus = file_to_corpus(data_dir)
+    document = corpus_to_documents(corpus)
+    question = 'After you get a gun shot and have the symptoms of PTSD, what should you do?'
+    print(document)
+    retrieve_documents = retrieve_documents(document, question, k=3)
+    prompt = PromptTemplate.from_template(question)
+    chain = create_chains(chatbot, prompt)
+    print(chain.run(input_documents=retrieve_documents, question=question))
+    print("##################################################")
+    print(chain.run(question=question))
     exit()
     
     
