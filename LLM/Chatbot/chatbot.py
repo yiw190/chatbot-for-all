@@ -18,7 +18,7 @@ args = argparse.ArgumentParser(description="OpenAI Chatbot")
 # OpenAI
 
 args.add_argument("--openai_model", type=str, default="gpt-3.5-turbo-1106", help="The openai model to use")
-args.add_argument("--use_openai", type=str, default="False", help="Whether to use openai model") 
+args.add_argument("--use_openai", type=str, default="True", help="Whether to use openai model") 
 
 # Local Model
 args.add_argument("--local_model", type=str, default="mistralai/Mistral-7B-Instruct-v0.2", help="local model to use")
