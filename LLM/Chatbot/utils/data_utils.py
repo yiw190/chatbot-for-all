@@ -2,6 +2,12 @@ from langchain.vectorstores.faiss import FAISS
 from langchain.schema import Document
 from langchain_openai import OpenAIEmbeddings
 
+
+
+# retrive in long text
+
+################################
+
 def file_to_corpus(file_path):
     if file_path.endswith('.txt'):
         with open(file_path, 'r', encoding='utf-8') as f:
@@ -20,3 +26,4 @@ def retrieve_documents(documents, question, k=4, model='text-embedding-ada-002')
     retrieval_documents = documents_db.max_marginal_relevance_search(question, k=k)
     return retrieval_documents
             
+#################################

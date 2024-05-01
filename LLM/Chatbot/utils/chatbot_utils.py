@@ -12,11 +12,15 @@ from langchain.memory import (ConversationBufferMemory,
                               ConversationBufferWindowMemory,
                               ConversationSummaryMemory,
                               ConversationSummaryBufferMemory)
+from py2neo import Graph
+import os
 
 # For Model From HuggingFace
 def create_tokenizer(model_name):
     # demo version, use AUTO tokenizer
     tokenizer = AutoTokenizer.from_pretrained(model_name)
+    
+    
     return tokenizer
 
 def create_model(model_name,load_in_8bit=True):
@@ -94,6 +98,10 @@ def create_qa_chains(llm, prompt, verbose=True):
     
     return chain
 
+## make sure server is running
+def get_neo4j_connection():
+    graph = Graph(os.getenv('NEO4J_URI'), auth=(os.getenv('NEO4J_USER'), os.getenv('NEO4J_PASSWORD')))
+    return graph
 
 
 if __name__ == "__main__":

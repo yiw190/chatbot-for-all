@@ -24,9 +24,4 @@ def conversation_temp():
     return template # text
 
 
-
-
-
-
-
 #############################        INDUSTRY         ############################################
